@@ -1,5 +1,15 @@
 #include "monty.h"
 
+void free_stack(void)
+{
+	stack_t *temp = g.head;
+	while (g.head != NULL)
+	{
+		temp = g.head;
+		g.head = temp->prev;
+		free(temp);
+	}
+}
 void free_arr(char **arr)
 {
 	int i = 0;
@@ -43,7 +53,7 @@ char **separate(char *line)
 	token = strtok(linecpy, limits);
 	for (i = 0; token ; i++)
 	{
-		resultstr[i] = malloc(sizeof(char) * strlen(token) + 1);
+		resultstr[i] = malloc(sizeof(char) * (strlen(token) + 1));
 		if (resultstr[i] == NULL)
 		{
 			free(linecpy);
@@ -67,17 +77,16 @@ void (*get_code(char *code))(stack_t **stack, unsigned int line_number)
 	instruction_t opt[] = {
 		{"push", _push},
 		{"pall", _pall},
+		{"pint", _pint},
 		{"else", _notfound}
 	};
 
-	while(strcmp(opt[i].opcode, code) != 0 &&
-			strcmp(opt[i].opcode, "else") != 0 )
+	while (strcmp(opt[i].opcode, code) != 0 &&
+			strcmp(opt[i].opcode, "else") != 0)
 		i++;
 	if (opt[i].opcode != NULL)
 		return (opt[i].f);
-	else
-	{
-		fprintf(stderr, "USAGE: unknown command");
-		exit (EXIT_FAILURE);
-	}
+
+	fprintf(stderr, "USAGE: unknown command");
+	exit(EXIT_FAILURE);
 }

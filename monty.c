@@ -1,14 +1,18 @@
 #include "monty.h"
 
-stack_t *head = NULL;
-char **arr = NULL;
-
+global_t g;
+/**
+ * main - 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 int main(int argc, char *argv[])
 {
 	FILE *fd_open;
-	char *line;
-	ssize_t fd_read;
-	size_t in_size;
+	char *line = NULL;
+	ssize_t fd_read = 0;
+	size_t in_size = 0;
 	unsigned int line_number = 1;
 	int i = 0;
 
@@ -28,28 +32,15 @@ int main(int argc, char *argv[])
 
 	while (1)
 	{
-		printf("inicio/reinicio\n");
 		fd_read = getline(&line, &in_size, fd_open);
 		if (fd_read == -1)
 			break;
-		printf("despues de getline\n");
-		arr = separate(line);
-		printf("despues de token\n");
-		get_code(arr[0])(&head, line_number);
-		printf("despues de func\n");
-		printf("antes de imprimir\n");
-
-		for (i = 0; arr[i] != NULL; i++)
-			printf("%s\n", arr[i]);
-
-		printf("despues de imprimir\n");
-
+		g.arr = separate(line);
+		get_code(g.arr[0])(&g.head, line_number);
 		line_number++;
-		printf("antes de liberar\n");
-		free_arr(arr);
-		printf("despues de liberar\n");
+		free_arr(g.arr);
 	}
 	free(line);
 	fclose(fd_open);
-	
+	free_stack();
 }

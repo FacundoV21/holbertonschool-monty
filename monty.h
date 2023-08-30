@@ -36,8 +36,13 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-extern char **arr;
-extern stack_t *head;
+typedef struct global_s
+{
+	char **arr;
+	stack_t *head;
+} global_t;
+
+extern global_t g;
 
 void _pall(stack_t **head, unsigned int line_number);
 void _push(stack_t **stack, unsigned int line_number);
@@ -45,5 +50,7 @@ void (*get_code(char *code))(stack_t **stack, unsigned int line_number);
 char **separate(char *line);
 void free_arr(char **arr);
 void _notfound(stack_t **stack, unsigned int line_number);
+void free_stack(void);
+void _pint(stack_t **head, unsigned int line_number);
 
 #endif

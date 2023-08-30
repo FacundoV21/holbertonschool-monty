@@ -5,7 +5,7 @@ void _push(stack_t **head, unsigned int line_number)
 	stack_t *new_element, *temp;
 	int n;
 
-	n = atoi(arr[1]);
+	n = atoi(g.arr[1]);
 	if (n == 0)
 	{
 		fprintf(stderr, "L%i: usage: push integer\n", line_number);
@@ -30,6 +30,7 @@ void _push(stack_t **head, unsigned int line_number)
 		temp = *head;
 		temp->next = new_element;
 		*head = new_element;
+		new_element->prev = temp;
 	}
 }
 
@@ -50,6 +51,17 @@ void _notfound(stack_t **stack, unsigned int line_number)
 {
 
 	(void)stack;
-	fprintf(stderr, "L%i: unknown instruction %s\n", line_number, arr[0]);
+	fprintf(stderr, "L%i: unknown instruction %s\n", line_number, g.arr[0]);
 	exit(EXIT_FAILURE);
+}
+
+void _pint(stack_t **head, unsigned int line_number)
+{
+	if (head != NULL)
+		printf("%i\n", g.head->n);
+	else
+	{
+		fprintf(stderr, "L%i: can't pint, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 }
