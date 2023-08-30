@@ -14,7 +14,6 @@ int main(int argc, char *argv[])
 	ssize_t fd_read = 0;
 	size_t in_size = 0;
 	unsigned int line_number = 1;
-	int i = 0;
 
 	if (argc < 2)
 	{
