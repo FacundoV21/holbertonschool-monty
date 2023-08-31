@@ -11,7 +11,7 @@ void _push(stack_t **head, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	n = atoi(g.arr[1]);
-	if (isdigit(g.arr[1]) == 0)
+	if (isdigit(n) != 0)
 	{
 		fprintf(stderr, "L%i: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
