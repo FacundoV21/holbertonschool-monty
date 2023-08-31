@@ -5,8 +5,13 @@ void _push(stack_t **head, unsigned int line_number)
 	stack_t *new_element, *temp;
 	int n;
 
+	if (g.arr[1] == NULL)
+	{
+		fprintf(stderr, "L%i: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 	n = atoi(g.arr[1]);
-	if (n == 0)
+	if (isdigit(g.arr[1]) == 0)
 	{
 		fprintf(stderr, "L%i: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
@@ -57,11 +62,11 @@ void _notfound(stack_t **stack, unsigned int line_number)
 
 void _pint(stack_t **head, unsigned int line_number)
 {
-	if (head != NULL)
-		printf("%i\n", g.head->n);
-	else
+	if (*head == NULL)
 	{
 		fprintf(stderr, "L%i: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
+	else
+		printf("%i\n", g.head->n);
 }

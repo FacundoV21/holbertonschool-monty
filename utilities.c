@@ -10,13 +10,14 @@ void free_stack(void)
 		free(temp);
 	}
 }
-void free_arr(char **arr)
+void free_arr(char **strs)
 {
 	int i = 0;
 
-	for (i = 0; arr[i]; i++)
-		free(arr[i]);
-	free(arr);
+	for (i = 0; strs[i] != NULL; i++)
+		free(strs[i]);
+	if (strs != NULL)
+		free(strs);
 }
 
 char **separate(char *line)
@@ -26,6 +27,8 @@ char **separate(char *line)
 	char *token, *linecpy;
 	int tokenamount = 0, i;
 
+	if (line[0] == '\0')
+		return(NULL);
 	linecpy = strdup(line);
 
 	token = strtok(line, limits);
@@ -34,7 +37,6 @@ char **separate(char *line)
 		tokenamount++;
 		token = strtok(NULL, limits);
 	}
-	tokenamount++;
 
 	if (tokenamount == 0)
 	{
@@ -42,7 +44,7 @@ char **separate(char *line)
 		return (NULL);
 	}
 
-	resultstr = malloc(sizeof(char *) * tokenamount);
+	resultstr = malloc(sizeof(char *) * tokenamount + 1);
 	if (resultstr == NULL)
 	{
 		free(linecpy);

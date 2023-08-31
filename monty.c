@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
 {
 	FILE *fd_open;
 	char *line = NULL;
+	g.head = NULL;
 	ssize_t fd_read = 0;
 	size_t in_size = 0;
 	unsigned int line_number = 1;
@@ -34,10 +35,17 @@ int main(int argc, char *argv[])
 		fd_read = getline(&line, &in_size, fd_open);
 		if (fd_read == -1)
 			break;
+		if (fd_read == 0)
+			continue;
 		g.arr = separate(line);
+		if (g.arr == NULL)
+		{
+			line_number++;
+			continue;
+		}
 		get_code(g.arr[0])(&g.head, line_number);
-		line_number++;
 		free_arr(g.arr);
+		line_number++;
 	}
 	free(line);
 	fclose(fd_open);
