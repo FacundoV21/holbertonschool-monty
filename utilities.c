@@ -24,33 +24,19 @@ char **separate(char *line)
 {
 	const char *limits = " \n\t";
 	char **resultstr;
-	char *token, *linecpy;
+	char *token = NULL, *linecpy;
 	int tokenamount = 0, i;
 
 	if (line[0] == '\0')
 		return(NULL);
 	linecpy = strdup(line);
 
-	token = strtok(line, limits);
-	while (token != NULL)
-	{
-		tokenamount++;
-		token = strtok(NULL, limits);
-	}
-
-	if (tokenamount == 0)
-	{
-		free(linecpy);
-		return (NULL);
-	}
+	tokenamount = check_tokens(line, limits, token, linecpy);
+	if (tokenamount == -1)
+		return(NULL);
 
 	resultstr = malloc(sizeof(char *) * tokenamount + 1);
-	if (resultstr == NULL)
-	{
-		free(linecpy);
-		fprintf(stderr, "Error: malloc failed");
-		exit(EXIT_FAILURE);
-	}
+	check_arr(resultstr, linecpy);
 
 	token = strtok(linecpy, limits);
 	for (i = 0; token ; i++)
@@ -66,7 +52,6 @@ char **separate(char *line)
 		strcpy(resultstr[i], token);
 		token = strtok(NULL, limits);
 	}
-
 	resultstr[i] = NULL;
 	free(linecpy);
 	return (resultstr);
@@ -80,6 +65,10 @@ void (*get_code(char *code))(stack_t **stack, unsigned int line_number)
 		{"push", _push},
 		{"pall", _pall},
 		{"pint", _pint},
+		{"pop", _pop},
+		{"swap", _swap},
+		{"add", _add},
+		{"nop", _nop},
 		{"else", _notfound}
 	};
 

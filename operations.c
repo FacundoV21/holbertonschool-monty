@@ -70,3 +70,23 @@ void _pint(stack_t **head, unsigned int line_number)
 	else
 		printf("%i\n", g.head->n);
 }
+
+void _pop(stack_t **head, unsigned int line_number)
+{
+	stack_t *temp;
+
+	if (*head == NULL)
+	{
+		fprintf(stderr, "L%i: can't pop an empty stack\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		temp = *head;
+		*head = temp->prev;
+		free(temp);
+		temp = *head;
+		temp->next = NULL;
+	}
+
+}

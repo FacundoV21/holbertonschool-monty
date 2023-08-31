@@ -41,6 +41,7 @@ typedef struct global_s
 {
 	char **arr;
 	stack_t *head;
+	FILE *fd_open;
 } global_t;
 
 extern global_t g;
@@ -53,5 +54,13 @@ void free_arr(char **strs);
 void _notfound(stack_t **stack, unsigned int line_number);
 void free_stack(void);
 void _pint(stack_t **head, unsigned int line_number);
+void check_args(int arguments);
+void check_open(char **argumento);
+int check_tokens(char *line, const char *limits, char *token, char *linecpy);
+void check_arr(char **resultstr, char *linecpy);
+void _pop(stack_t **head, unsigned int line_number);
+void _swap(stack_t **head, unsigned int line_number);
+void _add(stack_t **head, unsigned int line_number);
+void _nop(stack_t **head, unsigned int line_number);
 
 #endif

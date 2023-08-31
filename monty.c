@@ -9,30 +9,19 @@ global_t g;
  */
 int main(int argc, char *argv[])
 {
-	FILE *fd_open;
 	char *line = NULL;
 	g.head = NULL;
 	ssize_t fd_read = 0;
 	size_t in_size = 0;
 	unsigned int line_number = 1;
 
-	if (argc < 2)
-	{
-		fprintf(stderr, "USAGE: monty file");
-		exit(EXIT_FAILURE);
-	}
-
-	fd_open = fopen(argv[1], "r");
-
-	if (fd_open == NULL)
-	{
-		fprintf(stderr, "USAGE: monty file");
-		exit(EXIT_FAILURE);
-	}
-
+	check_args(argc);
+	g.fd_open = fopen(argv[1], "r");
+	check_open(argv);
+	
 	while (1)
 	{
-		fd_read = getline(&line, &in_size, fd_open);
+		fd_read = getline(&line, &in_size, g.fd_open);
 		if (fd_read == -1)
 			break;
 		if (fd_read == 0)
@@ -48,6 +37,6 @@ int main(int argc, char *argv[])
 		line_number++;
 	}
 	free(line);
-	fclose(fd_open);
+	fclose(g.fd_open);
 	free_stack();
 }
