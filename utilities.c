@@ -1,8 +1,12 @@
 #include "monty.h"
 
+/**
+ * free_stack - frees the stack
+ */
 void free_stack(void)
 {
 	stack_t *temp = g.head;
+
 	while (g.head != NULL)
 	{
 		temp = g.head;
@@ -10,6 +14,12 @@ void free_stack(void)
 		free(temp);
 	}
 }
+
+/**
+ * free_arr - frees an array
+ *
+ * @strs: array to free
+ */
 void free_arr(char **strs)
 {
 	int i = 0;
@@ -20,6 +30,12 @@ void free_arr(char **strs)
 		free(strs);
 }
 
+/**
+ * separate - separates a line into tokens
+ *
+ * @line: line to separate
+ * Return: char**
+ */
 char **separate(char *line)
 {
 	const char *limits = " \n\t";
@@ -28,12 +44,12 @@ char **separate(char *line)
 	int tokenamount = 0, i;
 
 	if (line[0] == '\0')
-		return(NULL);
+		return (NULL);
 	linecpy = strdup(line);
 
 	tokenamount = check_tokens(line, limits, token, linecpy);
 	if (tokenamount == -1)
-		return(NULL);
+		return (NULL);
 
 	resultstr = malloc(sizeof(char *) * tokenamount + 1);
 	check_arr(resultstr, linecpy);
@@ -57,6 +73,12 @@ char **separate(char *line)
 	return (resultstr);
 }
 
+/**
+ * get_code - gets the operation to do
+ *
+ * @code: string with the operation to do
+ * Return: function pointer
+ */
 void (*get_code(char *code))(stack_t **stack, unsigned int line_number)
 {
 	int i = 0;
