@@ -1,5 +1,10 @@
 #include "monty.h"
-
+/**
+ * _swap - print te top of the stack
+ *
+ * @head: top of the stack
+ * @line_number: line number
+ */
 void _swap(stack_t **head, unsigned int line_number)
 {
 	stack_t *temp;
@@ -29,7 +34,12 @@ void _swap(stack_t **head, unsigned int line_number)
 		*head = temp;
 	}
 }
-
+/**
+ * _add - adds the two top nodes of the stack
+ *
+ * @head: top of the stack
+ * @line_number: line number
+ */
 void _add(stack_t **head, unsigned int line_number)
 {
 	stack_t *temp;
@@ -53,7 +63,12 @@ void _add(stack_t **head, unsigned int line_number)
 	}
 
 }
-
+/**
+ * _nop - does nothing
+ *
+ * @head: top of the stack
+ * @line_number: line number
+ */
 void _nop(stack_t **head, unsigned int line_number)
 {
 	(void)head;

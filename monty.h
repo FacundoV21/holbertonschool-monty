@@ -37,6 +37,15 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+/**
+ * struct global_s - struct of useful stuff
+ * @arr: the argments of the input
+ * @head: top of the stack
+ * @fd_open: file descriptor for fopen
+ *
+ * Description: global struct
+ * for stack, queues, LIFO, FIFO
+ */
 typedef struct global_s
 {
 	char **arr;
